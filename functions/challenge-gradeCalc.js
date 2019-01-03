@@ -16,9 +16,12 @@
 //     }
 
 // }
-
-const gradeCalc = function (studentScore, totalScore = 20) {
+const gradeCalc = function (studentScore, totalScore) {
     const percentScore = (studentScore / totalScore) * 100;
+
+    if (typeof studentScore !== "number" || typeof totalScore !== "number") {
+        throw Error('Value must be a number')
+    }
 
     let gradeLetter = '';
 
@@ -35,7 +38,10 @@ const gradeCalc = function (studentScore, totalScore = 20) {
     }
 
     return console.log(`You got a ${gradeLetter} (${percentScore}%)`);
-
 }
 
-const result = gradeCalc(15);
+try {
+    const result = gradeCalc(true, 4);
+} catch (e) {
+    console.log(e.message)
+}

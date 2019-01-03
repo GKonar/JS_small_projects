@@ -1,3 +1,5 @@
+'use strict'
+
 const todos = getSavedTodos()
 
 const filters = {
@@ -8,13 +10,13 @@ const filters = {
 renderTodos(filters, todos)
 
 // Read value of the input
-document.querySelector('#search-todo').addEventListener('input', function (e) {
+document.querySelector('#search-todo').addEventListener('input', e => {
     filters.searchText = e.target.value 
     renderTodos(filters, todos)
 })
 
 // Add new todo to list
-document.querySelector('#submit-todo').addEventListener('submit', function(e) { //submit event listener (submit handler)
+document.querySelector('#submit-todo').addEventListener('submit', e => { //submit event listener (submit handler)
     e.preventDefault()
     const newTodo = 
     { 
@@ -29,7 +31,7 @@ document.querySelector('#submit-todo').addEventListener('submit', function(e) { 
 })
 
 // On checkbox action render or hide Todo list
-document.querySelector('#hide-checkbox').addEventListener('change', function(e) {
+document.querySelector('#hide-checkbox').addEventListener('change', e => {
     filters.hideCompleted = e.target.checked  
     renderTodos(filters, todos)
 })
