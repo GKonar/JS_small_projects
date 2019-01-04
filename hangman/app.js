@@ -3,8 +3,9 @@ const puzzleEl = document.querySelector('#puzzle')
 const guessesEl = document.querySelector('#guessesLeft')
 const firstWord = new Hangman('Cat', 2)
 
+
 puzzleEl.textContent = firstWord.getPuzzle()
-guessesEl.textContent = firstWord.guessesLeft
+console.log(firstWord.status)
 
 
 // KEYPRESS EVENT LISTENER
@@ -13,8 +14,6 @@ window.addEventListener('keypress', function(e) {
     firstWord.guessPuzzel(guess)
     
     puzzleEl.textContent = firstWord.getPuzzle()
-    guessesEl.textContent = firstWord.guessesLeft
-    
-    firstWord.getStatus()
+    console.log(firstWord.status)
 }) 
 

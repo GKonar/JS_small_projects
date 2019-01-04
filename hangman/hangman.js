@@ -1,27 +1,36 @@
-const Hangman = function (word, guessesLeft, guessedLetters = [], status = 'playing') {
+const Hangman = function (word, guessesLeft) {
     this.word = word.toLowerCase().split('')
     this.guessesLeft = guessesLeft
     this.guessedLetters = []
-    this.status = status
+    this.status = 'playing'
 }
 
-Hangman.prototype.guessPuzzel = function (char) {
-    char = char.toLowerCase()
-    const isUnique = !this.guessedLetters.includes(char)
-    const isBadGuess = !this.word.includes(char)
-
-
-    if (isUnique) {
-        this.guessedLetters.push(char) 
-    } 
-
-    if (isUnique && isBadGuess) {
-        this.guessesLeft--
-    }
+Hangman.prototype.getStatusMessage = function () {
+    const status = document.querySelector('#status')
     
+    if(this.status === 'finished') {
+        status.textContent = `Great work! U guessed the word!`
+    } else if (this.status === 'failed') {
+        status.textContent = `Nice try. The word was "${this.word.join('')}"`
+    } else { 
+        status.textContent = `Guesses left: ${this.guessesLeft}`
+    }
+}
+
+Hangman.prototype.setStatus = function () {
+    const finished = this.word.every((letter) => this.guessedLetters.includes(letter))
+    
+    if (this.guessesLeft === 0) {
+        this.status = 'failed'
+    } else if (finished) {
+        this.status = 'finished'
+    } else {
+        this.status = 'playing'
+    }
 }
 
 Hangman.prototype.getPuzzle = function () {
+    this.getStatusMessage()
     let puzzle = ''
 
     this.word.forEach((letter) => {
@@ -35,30 +44,26 @@ Hangman.prototype.getPuzzle = function () {
     return puzzle
 }
 
-Hangman.prototype.getStatus = function () {
-    let guessed = ''
-    
-    if (this.guessesLeft >= 1) {
-        this.status = 'playing'
-        console.log(this.status)
-    }
+Hangman.prototype.guessPuzzel = function (char) {
+    char = char.toLowerCase()
 
-    if (this.guessesLeft === 0) {
-        this.status = 'failed'
-        console.log(this.status)
-    }
+    const isUnique = !this.guessedLetters.includes(char)
+    const isBadGuess = !this.word.includes(char)
 
-    this.word.forEach((letter) => {
-        if (this.guessedLetters.includes(letter)) {
-            guessed += letter
-        }
-    })
 
-    if(guessed.length === this.word.length) {
-        this.status = 'finished'
-        console.log(this.status)
-    }
+    if (isUnique) {
+        this.guessedLetters.push(char) 
+    } 
+
+    if (isUnique && isBadGuess && this.guessesLeft > 0) { 
+        this.guessesLeft--
+    } 
+
+    this.setStatus()
 }
+
+
+
 
 
 
