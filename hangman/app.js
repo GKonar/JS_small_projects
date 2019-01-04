@@ -5,6 +5,7 @@ const firstWord = new Hangman('Cat', 2)
 
 
 puzzleEl.textContent = firstWord.getPuzzle()
+guessesEl.textContent = firstWord.getStatusMessage()
 console.log(firstWord.status)
 
 
@@ -14,6 +15,6 @@ window.addEventListener('keypress', function(e) {
     firstWord.guessPuzzel(guess)
     
     puzzleEl.textContent = firstWord.getPuzzle()
+    guessesEl.textContent = firstWord.getStatusMessage()
     console.log(firstWord.status)
 }) 
-
