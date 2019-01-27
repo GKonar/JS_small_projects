@@ -7,9 +7,9 @@ const loadTodos = () => {
     const todosJSON = localStorage.getItem('todos') //read data
     
     try {
-        return todosJSON ? JSON.parse(todosJSON) : []
+        todos = todosJSON ? JSON.parse(todosJSON) : []
     } catch (e) {
-        return []
+        todos = []
     }
 }
 
@@ -60,6 +60,6 @@ const toggleTodo = id => {
     }
 }
 
-todos = loadTodos()
+loadTodos()
 
 export { loadTodos, saveTodos, getTodos, createTodo, removeTodo, toggleTodo }

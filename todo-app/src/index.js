@@ -1,4 +1,4 @@
-import { createTodo } from './todos'
+import { createTodo, loadTodos } from './todos'
 import { renderTodos } from './views'
 import { setFilters } from './filters';
 
@@ -14,8 +14,8 @@ document.querySelector('#search-todo').addEventListener('input', e => {
 
 // Add new todo to list
 document.querySelector('#submit-todo').addEventListener('submit', e => { //submit event listener (submit handler)
+    let todoText = e.target.elements.newTodo.value.trim()
     e.preventDefault()
-        let todoText = e.target.elements.newTodo.value.trim()
         createTodo(todoText)
         e.target.elements.newTodo.value = ''
 })
@@ -26,4 +26,11 @@ document.querySelector('#hide-checkbox').addEventListener('change', e => {
         hideCompleted: e.target.checked
     })  
     renderTodos()
+})
+
+window.addEventListener('storage', (e) => {
+    if(e.key === 'todos') {
+        loadTodos()
+        renderTodos()
+    }
 })
